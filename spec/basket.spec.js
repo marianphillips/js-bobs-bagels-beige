@@ -34,8 +34,14 @@ describe("Basket", () => {
 
         const expected = []
         basket.addBagel("BGLO")
-        const result = basket.removeBagel(1)
+        const result = basket.removeBagel("BGLO")
 
+        expect(result).toEqual(expected);
+    });
+
+    it("cannot remove an item that isn't in the basket", () => {
+        const expected = "Bagel isn't in basket"
+        const result = basket.removeBagel("random")
         expect(result).toEqual(expected);
     });
 
@@ -50,11 +56,30 @@ describe("Basket", () => {
 
     it("when Basket is full", () => {
 
-        const expected = 'basket is full'
+        const expected = true
         basket.addBagel("BGLO", 4)
         const result = basket.basketIsFull()
         expect(result).toEqual(expected);
+        expect(basket.contents.length).toEqual(3);
     });
+
+    it("when Basket is full, error message return", () => {
+
+        const expected = "This basket is full"
+        basket.addBagel("BGLO", 3)
+        const result = basket.addBagel('BGLO')
+        expect(result).toEqual(expected);
+    });
+
+
+    it("when Basket is not full, return false", () => {
+
+        const expected = false
+        basket.addBagel("BGLO", 2)
+        const result = basket.basketIsFull()
+        expect(result).toEqual(expected);
+    });
+
     
     it("prevent adding bagels past basket capacity", () => {
         // shouldn't be able to add 4 bagels to basket of capacity 3.
@@ -71,16 +96,18 @@ describe("Basket", () => {
         expect(result).toEqual(expected);
     });
 
-    it("cannot remove an item that isn't in the basket", () => {
-        const expected = "Bagel isn't in basket"
-        const result = basket.removeBagel(1)
-        expect(result).toEqual(expected);
-    });
+
 
     it("total sum of bagels in my basket ", () => {
         const expected = 3 * 0.49
         basket.addBagel("BGLO", 3)
-        basket.countBagelsInBasket()
+        const result = basket.getTotal();
+        expect(result).toEqual(expected);
+      });
+
+      it("total sum of bagels in my basket sesame ", () => {
+        const expected = 3 * 0.49
+        basket.addBagel("BGLS", 3)
         const result = basket.getTotal();
         expect(result).toEqual(expected);
       });
