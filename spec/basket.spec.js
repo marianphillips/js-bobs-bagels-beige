@@ -14,16 +14,10 @@ describe("Basket", () => {
         expect(result).toEqual(expected);
     });
 
-    it("get price of bagel before adding to basket", () => {
-        const testBagel = new Bagel("BGLO");
-        const expected = testBagel.price;
-        const result = basket.getPriceOfBagel("BGLO");
-        expect(result).toEqual(expected);
-      });
 
     it("add item to basket", () => {
 
-        const expected = [new Bagel("BGLO", 1)]
+        const expected = [new Bagel("BGLO")]
 
         const result = basket.addBagel("BGLO")
 

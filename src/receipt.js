@@ -1,28 +1,27 @@
 const Bagel = require("../src/bagel.js");
-const Basket = require("../src/basket.js");
 
 class Receipt {
-    constructor(obj = {}, instanceOfBasket){
-    this.purchases = obj
-    this.items = instanceOfBasket
-    this.date = new Date
-    // this.total = 0
+    constructor(instanceOfBasket, instanceOfDiscounts){
+    this.purchases = instanceOfBasket
+    this.discounts = instanceOfDiscounts
     }
+
     getReceipt(){
         return `
     ~~~ Bob's Bagels ~~~    
 
-       ${this.date.toDateString()}
+  ${Date().substring(0,24)}
 ----------------------------
 ${this.getPurchaseList()}
-Total                 £${this.items.getTotal()}
+Total                 £${this.purchases.getTotal()}
         Thank you
       for your order!         `
     }
+
     getPurchaseList(){
-        // this.total = 0
         let purchaseLines = ""
-        for (let key in this.purchases){
+        const amountOfBagels = this.purchases.countBagelsInBasket()
+        for (let key in amountOfBagels){
             let receiptLine = ""
             receiptLine += Bagel.getTypeOfBagel(key)
             ? Bagel.getTypeOfBagel(key)
@@ -32,16 +31,15 @@ Total                 £${this.items.getTotal()}
                     receiptLine += " "
                 }
             }
-            receiptLine += this.purchases[`${key}`]
+            receiptLine += amountOfBagels[key]
             for (let i=0;i<4;i++){
                 if (receiptLine.length < 23){
                     receiptLine += " "
                 }
             }
             receiptLine += "£"
-            const subtotal = this.items.getTotalBagelwithDiscount(this.purchases, key)
+            const subtotal = this.discounts.multiBuyDealTotal(amountOfBagels, key)
             receiptLine += subtotal
-            // this.total += subtotal
             purchaseLines += `${receiptLine}\n`
         }
         return purchaseLines
