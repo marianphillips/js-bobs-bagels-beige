@@ -47,8 +47,8 @@ describe("Basket", () => {
 
     it("add a second bagel to basket", () => {
 
-        const expected = [new Bagel("BGLO", 1),
-        new Bagel("BGLO", 2)]
+        const expected = [new Bagel("BGLO"),
+        new Bagel("BGLO")]
         basket.addBagel("BGLO")
         const result = basket.addBagel("BGLO")
         expect(result).toEqual(expected);

@@ -2,10 +2,11 @@ const Bagel = require("../src/bagel.js");
 const Basket = require("../src/basket.js");
 
 class Receipt {
-    constructor(obj = {}){
+    constructor(obj = {}, instanceOfBasket){
     this.purchases = obj
+    this.items = instanceOfBasket
     this.date = new Date
-    this.total = 0
+    // this.total = 0
     }
     getReceipt(){
         return `
@@ -14,12 +15,12 @@ class Receipt {
        ${this.date.toDateString()}
 ----------------------------
 ${this.getPurchaseList()}
-Total                 £${Number(this.total.toFixed(2))}
+Total                 £${this.items.getTotal()}
         Thank you
       for your order!         `
     }
     getPurchaseList(){
-        this.total = 0
+        // this.total = 0
         let purchaseLines = ""
         for (let key in this.purchases){
             let receiptLine = ""
@@ -38,9 +39,9 @@ Total                 £${Number(this.total.toFixed(2))}
                 }
             }
             receiptLine += "£"
-            const subtotal = Basket.getSubtotal(this.purchases, key)
+            const subtotal = this.items.getTotalBagelwithDiscount(this.purchases, key)
             receiptLine += subtotal
-            this.total += subtotal
+            // this.total += subtotal
             purchaseLines += `${receiptLine}\n`
         }
         return purchaseLines

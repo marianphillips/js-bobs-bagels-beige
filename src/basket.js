@@ -1,6 +1,7 @@
 const Bagel = require("../src/bagel.js");
 const deals = require("../src/deals.js");
 
+
 class Basket {
     constructor(number = 3) {
         this.contents = []
@@ -54,17 +55,6 @@ class Basket {
          return this.counts;
     }
 
-    // static getSubtotal(counts,SKU){
-    //     const count = counts[SKU]
-    //     const dealQuantity = deals[SKU][0]
-    //     const dealPrice = deals[SKU][1]
-    //     const bagelPrice = Bagel.getPriceOfBagel(SKU)
-    //     const dealSum = Math.floor(count / dealQuantity) * (dealPrice)
-    //     const nonDealSum = (count % dealQuantity) * (bagelPrice)
-    //     return Number((dealSum + nonDealSum).toFixed(2))
-
-    // }
-
     getTotalBagelwithDiscount(counts,SKU){
         const count = counts[SKU]
         const dealQuantity = deals[SKU][0]
@@ -84,10 +74,9 @@ class Basket {
         const numOfDiscounts = counts[comboDeal] % deals[comboDeal][0]
         const saving = Bagel.getPriceOfBagel(comboDeal) - deals[SKU][3]
         return numOfDiscounts * saving   
-
     }
 
-    getTotal(){
+    getTotal() {
         this.countBagelsInBasket()
         let total = 0
 
