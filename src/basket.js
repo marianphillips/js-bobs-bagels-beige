@@ -53,10 +53,10 @@ class Basket {
     getTotal() {
         this.countBagelsInBasket()
         let total = 0
+        const discount = new Discounts()
 
         for (let SKU in this.counts){
           if (deals.hasOwnProperty(SKU)){
-            let discount = new Discounts()
               if (deals[SKU].length === 4) {
                 total -= discount.comboDealSavings(this.counts, SKU)  
               }

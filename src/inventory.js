@@ -26,8 +26,8 @@ const inventory = [
     {
       "sku": "COF",
       "price": "0.99",
-      "name": "Bagel",
-      "variant": ""
+      "name": "",
+      "variant": "Coffee"
     },
     {
       "sku": "BGSE",

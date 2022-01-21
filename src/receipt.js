@@ -23,23 +23,16 @@ Total                 £${this.purchases.getTotal()}
         const amountOfBagels = this.purchases.countBagelsInBasket()
         for (let key in amountOfBagels){
             let receiptLine = ""
-            receiptLine += Bagel.getTypeOfBagel(key)
-            ? Bagel.getTypeOfBagel(key)
-            : 'Coffee'
-            for (let i = 0;i<19;i++){
-                if (receiptLine.length < 19){
-                    receiptLine += " "
-                }
-            }
-            receiptLine += amountOfBagels[key]
-            for (let i=0;i<4;i++){
-                if (receiptLine.length < 23){
-                    receiptLine += " "
-                }
-            }
+            
+            receiptLine += Bagel.getTypeOfBagel(key).padEnd(19," ")
+ 
+            receiptLine += amountOfBagels[key].toString().padEnd(4," ")
+
             receiptLine += "£"
+            
             const subtotal = this.discounts.multiBuyDealTotal(amountOfBagels, key)
             receiptLine += subtotal
+            
             purchaseLines += `${receiptLine}\n`
         }
         return purchaseLines
